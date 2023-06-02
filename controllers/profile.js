@@ -7,7 +7,9 @@ const { User } = require('../models');
 router.get('/', async (req, res) => {
     // get user ID from session
     const user = await User.findByPk(1 /* user ID from session */);
-
+    if (!user) {
+        return res.status(404).end(`There is no user`);
+    }
     res.send({
         new_comments: 12,
         new_likes: 35,
