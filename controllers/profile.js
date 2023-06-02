@@ -1,13 +1,13 @@
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
 
 const { User } = require('../models');
-
+const authMiddleware = require('../auth');
 
 // GetUserProfileFromSession -> GET /api/profile
-router.get('/', async (req, res) => {
-    // get user ID from session
-    const user = await User.findByPk(1 /* user ID from session */);
-
+router.get('/', authMiddleware, async (req, res) => {
+    const user = req.user;
+    console.log(user.id);
     res.send({
         new_comments: 12,
         new_likes: 35,

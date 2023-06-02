@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../models');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const existsError = {
     error: true,
@@ -7,26 +8,29 @@ const existsError = {
 };
 
 router.put('/create', async (req, res) => {
-    const user = await User.findOne({where:{email: req.body.email.toLowerCase()}})
+    let user = await User.findOne({where:{email: req.body.email.toLowerCase()}})
     if(user) {
         res.status(409).send(existsError);
         return;
     }
 
-   if(req.body.password.length === 0) {
+    const email = req.body.email.toLowerCase();
+    const password = req.body.password;
+
+    if(password.length === 0) {
        res.status(400).send({
            error: true,
            message: 'Password cannot be empty',
        })
        return;
-   }
+    }
     // hash password, store in variable
-    const hash = await bcrypt.hash(req.body.password, 10);
+    const hash = await bcrypt.hash(password, 10);
 
     // put hashed password in User.create()
     try {
-        await User.create({
-            email: req.body.email.toLowerCase(),
+        user = await User.create({
+            email: email,
             password: hash,
         })
     } catch (err) {
@@ -41,8 +45,36 @@ router.put('/create', async (req, res) => {
         console.log(err);
     }
     res.send({
-        user: "Max"
+        token: jwt.sign({id: user.id, email: user.email}, "cat"),
     })
+})
+
+router.get('/token', async (req, res) => {
+    const authErr = {
+        error: true,
+        message: "Bad username / password",
+    }
+
+    const email = req.body.email.toLowerCase();
+    const password = req.body.password;
+
+    const user = await User.findOne({where:{email: email}})
+    if(!user){
+        res.status(403).send(authErr)
+        return;
+    }
+
+    const matches = await bcrypt.compare(password, user.password)
+    if(!matches){
+        res.status(403).send(authErr)
+        return;
+    }
+
+    const token = jwt.sign({id: user.id, email: user.email}, "cat");
+
+    res.send({
+        token: token
+    });
 })
 
 module.exports = router;
