@@ -7,6 +7,8 @@ const existsError = {
     message: 'An account already exists for the user with this email address',
 };
 
+// account - log in and log out
+
 router.put('/create', async (req, res) => {
     let user = await User.findOne({where:{email: req.body.email.toLowerCase()}})
     if(user) {
@@ -49,10 +51,17 @@ router.put('/create', async (req, res) => {
     })
 })
 
-router.get('/token', async (req, res) => {
+router.post('/token', async (req, res) => {
     const authErr = {
         error: true,
         message: "Bad username / password",
+    }
+
+    console.log(req.body);
+
+    if (!req.body.email || !req.body.password) {
+        res.status(403).send(authErr)
+        return;
     }
 
     const email = req.body.email.toLowerCase();

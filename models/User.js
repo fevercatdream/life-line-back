@@ -14,9 +14,6 @@ User.init(
         name: {
             type: DataTypes.STRING,
             allowNull: true,
-            validate: {
-                isAlpha: true,
-            },
         },
         password: {
             type: DataTypes.STRING,
@@ -25,9 +22,6 @@ User.init(
         profilePhoto: {
             type: DataTypes.STRING,
             allowNull: true,
-            validate: {
-                isUrl: true,
-            },
         },
         birthDate: {
             type: DataTypes.STRING,
