@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const {User} = require('../models');
 
 const withAuth = async (req, res, next) => {
-    if (!req.body.token) {
+    const rawToken = req.get('Authorization');
+    if (!rawToken) {
         res.status(403).send({
             error: true,
             message: 'No authorization token present in request',
@@ -11,7 +12,7 @@ const withAuth = async (req, res, next) => {
     }
 
     try {
-        const token = jwt.verify(req.body.token, 'cat');
+        const token = jwt.verify(rawToken, 'cat');
         const user = await User.findByPk(token.id);
         if (!user) {
             res.status(400).send({
