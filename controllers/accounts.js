@@ -10,6 +10,14 @@ const existsError = {
 // account - log in and log out
 
 router.put('/create', async (req, res) => {
+    if (!req.body.email || !req.body.password) {
+        res.status(400).send({
+            error: true,
+            message: 'email or password field are missing',
+        });
+        return;
+    }
+
     let user = await User.findOne({where:{email: req.body.email.toLowerCase()}})
     if(user) {
         res.status(409).send(existsError);

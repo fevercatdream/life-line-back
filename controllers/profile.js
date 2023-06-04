@@ -1,16 +1,11 @@
 const router = require('express').Router();
-const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const upload = multer();
 const { User } = require('../models');
-const uuid = require('uuid');
 const authMiddleware = require('../auth');
-const s3 = require('@aws-sdk/client-s3');
+const {storePhoto} = require('../storage')
 
 // profile - get, create, update, delete
-const s3Client = new s3.S3Client({region: 'us-west-2'});
-const bucketName = 'life-line-upload-assets';
-const bucketUrlPrefix = 'https://life-line-upload-assets.s3.us-west-2.amazonaws.com';
 
 // GetUserProfileFromSession -> GET /api/profile
 router.get('/', authMiddleware, async (req, res) => {
@@ -103,20 +98,10 @@ function validate(input) {
     return /\S/.test(input);
 }
 
-router.post('/photo', authMiddleware, upload.single('photo'), async (req, res) => {
-    console.log(req.body, req.file);
-    const ext = req.file.originalname.split('.').pop();
-    const key = uuid.v4() + '.' + ext;
-    console.log(key)
 
+router.post('/photo', authMiddleware, upload.single('photo'), async (req, res) => {
     try {
-        const s3res = await s3Client.send(new s3.PutObjectCommand({
-            Bucket: bucketName,
-            Key: key,
-            ContentType: req.file.mimetype,
-            Body: req.file.buffer,
-        }));
-        req.user.profilePhoto = `${bucketUrlPrefix}/${key}`;
+        req.user.profilePhoto = await storePhoto(req.file);
         await req.user.save();
     } catch (error) {
         console.log(error);
