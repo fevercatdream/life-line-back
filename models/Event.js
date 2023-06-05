@@ -12,6 +12,10 @@ Event.init(
             type: DataTypes.TEXT,
             allowNull: true,
         },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         date: {
             type: DataTypes.STRING,
             allowNull: true,

@@ -13,11 +13,13 @@ const cascade = {
 // User
 User.hasMany(Event, cascade);
 User.hasMany(EventComment, cascade);
+User.hasMany(EventLike, cascade);
 User.belongsToMany(User, {through: Friends, as: 'Right', foreignKey: {name: 'LeftId'}});
 
 // Event
 Event.hasMany(EventComment, cascade);
 Event.hasMany(EventPhoto, cascade);
+Event.hasMany(EventLike, cascade);
 Event.belongsTo(User);
 
 // Event Comment
