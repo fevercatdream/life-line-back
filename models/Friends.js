@@ -6,6 +6,12 @@ class Friends extends Model {}
 Friends.init(
     {
         /** xref table, both FKs will auto generate from index.js **/
+        isPending: {
+            type: DataTypes.BOOLEAN,
+        },
+        isIncoming: {
+            type: DataTypes.BOOLEAN,
+        },
     },
     {
         sequelize,
