@@ -66,6 +66,8 @@ This application uses the following:
 
 [colord](https://www.npmjs.com/package/colord) a tiny yet powerful tool for high-performance color manipulations and conversions
 
+[dotenv](https://www.npmjs.com/package/dotenv) to load environment variables from a .env file
+
 [gh-pages](https://www.npmjs.com/package/gh-pages) publish to a gh-pages branch on GitHub (or any other branch on any other remote)
 
 [react](https://www.npmjs.com/package/react) React is a JavaScript library for building user interfaces
