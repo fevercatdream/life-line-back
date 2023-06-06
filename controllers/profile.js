@@ -12,6 +12,7 @@ router.get('/', authMiddleware, async (req, res) => {
     const user = req.user;
     console.log(user.id);
     res.send({
+        id: req.user.id,
         new_comments: 12,
         new_likes: 35,
         new_friend_requests: 5,

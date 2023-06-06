@@ -16,6 +16,7 @@ User.hasMany(EventComment, cascade);
 User.hasMany(EventLike, cascade);
 User.belongsToMany(User, {through: Friends, as: 'Right', foreignKey: {name: 'LeftId'}});
 
+
 // Event
 Event.hasMany(EventComment, cascade);
 Event.hasMany(EventPhoto, cascade);
@@ -28,7 +29,6 @@ EventComment.belongsTo(User);
 
 // Event Photo
 EventPhoto.belongsTo(Event);
-
 
 module.exports = {
     User: User,
