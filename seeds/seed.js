@@ -8,7 +8,7 @@ async function run() {
     await models.User.bulkCreate([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(x =>
             (
                 {
-                    name: 'Bernard Garbol'+x,
+                    name: 'Bernard Garbol '+x,
                     password: pass,
                     profilePhoto: 'https://placekitten.com/300/300',
                     birthDate: '2000-01-01',

@@ -111,8 +111,11 @@ router.post('/photo', authMiddleware, upload.single('photo'), async (req, res) =
         });
         return;
     }
-
-    res.send({error: false});
+    
+    res.send({
+        error: false,
+        url: req.user.profilePhoto}
+    );
 })
 
 // delete profile
