@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const authMiddleware = require('../auth');
-const {Friends} = require("../models");
+const {Friends, User} = require("../models");
+const {Op} = require('sequelize');
 
 router.post('/create-request', authMiddleware, async (req, res) => {
     const userId = req.user.id;
@@ -102,15 +103,65 @@ router.post('/resolve-request', authMiddleware, async (req, res) => {
 })
 
 router.get('/', authMiddleware, async (req, res) => {
+    const includePending = req.params.includePending === 'true' ? {} : {
+        isPending: false,
+    };
     const friends = await Friends.findAll({
         where: {
             LeftId: req.user.id,
-            isPending: false,
+            ...includePending,
+        },
+    })
+
+    const ids = friends.map(x => x.RightId);
+    console.log(ids);
+
+    const users = await User.findAll({
+        where: {
+            id: {
+                [Op.in]: ids,
+            },
         }
-    });
+    })
 
     res.send({
-        friends: friends,
+        friends: users,
+    });
+})
+
+router.get('/all-users', authMiddleware, async (req, res) => {
+    const users = await User.findAll({
+        where: {
+            id: {
+                [Op.not]: req.user.id,
+            },
+        },
+        attributes: {
+            exclude: ['password', 'email'],
+        },
+    });
+    const friends = await Friends.findAll({
+        where: {
+            LeftId: req.user.id,
+        },
+    })
+
+    const userModels = users.map(u => {
+        const friend = friends.find(x => x.RightId === u.id);
+        const model = {
+            ...u.dataValues
+        }
+        if (friend) {
+            model.isPending = friend.isPending;
+            model.isFriend = !friend.isPending;
+        } else {
+            model.isFriend = false;
+        }
+        return model;
+    })
+
+    res.send({
+        users: userModels,
     });
 })
 
