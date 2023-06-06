@@ -76,12 +76,16 @@ This application uses the following:
 
 [react-router-dom](https://www.npmjs.com/package/react-router-dom) declarative routing for React web applications
 
+[react-router-hash-link](https://www.npmjs.com/package/react-router-hash-link) Hash link scroll functionality for React Router
+
 [react-scripts](https://www.npmjs.com/package/react-scripts) configuration and scripts for Create React App
 
 [web-vitals](https://www.npmjs.com/package/web-vitals) easily measure performance metrics in JavaScript
 <br />
 
 ### Back-end
+
+[nodemon](https://www.npmjs.com/package/nodemon) nodemon is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected
 
 [@aws-sdk/client-s3](https://www.npmjs.com/package/@aws-sdk/client-s3) AWS SDK for JavaScript S3 Client for Node.js, Browser and React Native
 
