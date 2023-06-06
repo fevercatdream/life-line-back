@@ -6,13 +6,9 @@ const models = require('../models');
 const {storePhoto} = require("../storage");
 const {EventComment, EventPhoto, EventLike, User} = require("../models");
 
-// get, create, edit, delete
-router.get('/view/:id', authMiddleware, upload.array('photo'), async (req, res) => {
-    // description, photos, comments, likes
-    // add id on the front end
-    console.log(req.params)
+async function getTimeline(userId) {
     const events = await models.Event.findAll({
-        where: {UserId: req.params.id},
+        where: {UserId: userId},
         include: [
             {
                 model: EventComment,
@@ -50,11 +46,28 @@ router.get('/view/:id', authMiddleware, upload.array('photo'), async (req, res) 
             url: p.eventPhotoURL,
         })),
         likeCount: e.EventLikes.length,
-        userLiked: !!e.EventLikes.find(l => l.UserId === req.user.id),
+        userLiked: !!e.EventLikes.find(l => l.UserId === userId),
     }));
 
+    return eventModels;
+}
+
+router.get('/view', authMiddleware, async (req, res) => {
+    // description, photos, comments, likes
+    // add id on the front end
+
     res.send({
-        eventList: eventModels
+        eventList: await getTimeline(req.user.id),
+    })
+})
+
+// get, create, edit, delete
+router.get('/view/:id', authMiddleware, async (req, res) => {
+    // description, photos, comments, likes
+    // add id on the front end
+
+    res.send({
+        eventList: await getTimeline(req.params.id),
     })
 })
 
