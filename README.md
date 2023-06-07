@@ -48,6 +48,14 @@ This application uses the following:
 
 ### Front-end
 
+[@popperjs/core](https://www.npmjs.com/package/@popperjs/core) given an element, such as a button, and a tooltip element describing it, Popper will automatically put the tooltip in the right place near the button
+
+[bootstrap](https://www.npmjs.com/package/bootstrap) the most popular front-end framework for developing responsive, mobile first projects on the web
+
+[bootstrap-icons](https://www.npmjs.com/package/bootstrap-icons) official open source SVG icon library for Bootstrap
+
+[react-bootstrap](https://www.npmjs.com/package/react-bootstrap) Bootstrap 4 components built with React
+
 [@emotion/react](https://www.npmjs.com/package/@emotion/react) simple styling in React
 
 [@emotion/styled](https://www.npmjs.com/package/@emotion/styled) styled API for emotion
@@ -184,8 +192,7 @@ Cloud Storage on AWS: https://aws.amazon.com/products/storage/
 Amazon S3: https://aws.amazon.com/s3/?c=s&sec=srv
     - Amazon Simple Storage Service (Amazon S3) is an object storage service offering industry-leading scalability, data availability, security, and performance
 
-Bootstrap: https://getbootstrap.com/
-    - social media icons
+Bootstrap docs: https://getbootstrap.com/
 
 Favicon I/O: https://favicon.io/
     - favicon generator / converter
