@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon index.js",
     "seed": "node seeds/seed.js",
+    "seed_heroku": "dotenv -e .env.jaws -- node seeds/seed.js",
+    "syncdb_local": "node db/index.js",
+    "syncdb_heroku": "dotenv -e .env.jaws -- node db/index.js",
     "start": "node index.js"
   },
   "keywords": [],
@@ -26,5 +29,8 @@
     "mysql2": "^3.3.3",
     "sequelize": "^6.31.1",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.2.1"
   }
 }
