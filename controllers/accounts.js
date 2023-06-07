@@ -65,8 +65,6 @@ router.post('/token', async (req, res) => {
         message: "Bad username / password",
     }
 
-    console.log(req.body);
-    console.log(req.dne.asdf.s.df.sdf.dsf);
 
     if (!req.body.email || !req.body.password) {
         res.status(403).send(authErr)
