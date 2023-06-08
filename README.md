@@ -194,6 +194,8 @@ Amazon S3: https://aws.amazon.com/s3/?c=s&sec=srv
 
 Bootstrap docs: https://getbootstrap.com/
 
+Turning off eslint rule for a specific line: https://stackoverflow.com/questions/27732209/turning-off-eslint-rule-for-a-specific-line
+
 Favicon I/O: https://favicon.io/
     - favicon generator / converter
 
