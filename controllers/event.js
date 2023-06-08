@@ -73,8 +73,8 @@ router.delete('/deletePhoto', authMiddleware, async (req, res) => {
 })
 
 
-// update event settings
-router.put('/update', authMiddleware, async (req, res) => {
+// update event form
+router.put('/update/:id', authMiddleware, async (req, res) => {
 
     try {
         const update = await models.Event.update({
@@ -82,11 +82,13 @@ router.put('/update', authMiddleware, async (req, res) => {
             description: req.body.description,
             date: req.body.date,
             title: req.body.title,
-        }, {
+        },
+            {
             where: {
-                id: req.body.id,
+                id: req.params.id,
             }
-        })
+        }
+        )
     } catch (error) {
         res.status(500).send({
             error: true,
