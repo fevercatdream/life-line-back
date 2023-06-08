@@ -29,7 +29,7 @@ async function getTimeline(userId) {
             }
         ],
         order: [
-            ['date', 'ASC'],
+            ['date', 'DESC'],
         ]
     })
 
