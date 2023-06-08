@@ -28,9 +28,9 @@ async function getTimeline(userId) {
                 required: false,
             }
         ],
-        // order: [
-        //     ['date', 'ASC'],
-        // ]
+        order: [
+            ['date', 'DESC'],
+        ]
     })
 
     const eventModels = events.map(e => ({
