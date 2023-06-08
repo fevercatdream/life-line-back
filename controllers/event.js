@@ -35,10 +35,10 @@ router.post('/create', authMiddleware, upload.array('photo'), async (req, res) =
 })
 
 // get one event
-router.get('/', authMiddleware, async (req, res) => {
+router.get('/:id', authMiddleware, async (req, res) => {
     try {
         const data = await models.Event.findOne({
-            where: {id: req.body.id},
+            where: {id: req.params.id},
             include: [
                 {model: EventPhoto, attributes: ["eventPhotoURL"]}
             ]
