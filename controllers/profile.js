@@ -1,25 +1,50 @@
 const router = require('express').Router();
 const multer = require('multer');
 const upload = multer();
-const { User } = require('../models');
+const { User, Friends } = require('../models');
 const authMiddleware = require('../auth');
 const {storePhoto} = require('../storage')
+const {Op} = require("sequelize");
 
 // profile - get, create, update, delete
 
 // GetUserProfileFromSession -> GET /api/profile
 router.get('/', authMiddleware, async (req, res) => {
     const user = req.user;
+    const friends = await Friends.findAll({
+        where: {
+            // every friend that user has
+            LeftId: req.user.id,
+            isPending: true,
+            isIncoming: true,
+        }
+    })
+    const pendingFriendsIds = friends.map( i => i.RightId);
+    const users = await User.findAll({
+        where: {
+            id: {
+                [Op.in]: pendingFriendsIds,
+            },
+        }
+    })
+    const usersById = new Map(users.map(i => [i.id,i]))
+    console.log(usersById);
     console.log(user.id);
     res.send({
         id: req.user.id,
         new_comments: 12,
         new_likes: 35,
-        new_friend_requests: 5,
+        new_friend_requests: friends.length,
         name: user.name,
         birthdate: user.birthDate,
         birthplace: user.birthPlace,
         current_location: user.location,
+        pending_friends: friends.map((i) => ({
+            friendId: i.RightId,
+            createdAt: i.createdAt,
+            name: usersById.get(i.RightId).name,
+            profilePhoto: usersById.get(i.RightId).profilePhoto,
+        })),
         known_users: [
             {
                 id: 0,

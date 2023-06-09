@@ -7,6 +7,8 @@ const {storePhoto} = require("../storage");
 const {EventPhoto} = require("../models");
 
 // get, create, edit, delete
+
+//create event - implemented
 router.post('/create', authMiddleware, upload.array('photo'), async (req, res) => {
     // user id, event id, comment
     const user = req.user;
@@ -34,7 +36,7 @@ router.post('/create', authMiddleware, upload.array('photo'), async (req, res) =
 
 })
 
-// get one event
+// get one event - implemented
 router.get('/:id', authMiddleware, async (req, res) => {
     try {
         const data = await models.Event.findOne({
@@ -55,6 +57,22 @@ router.get('/:id', authMiddleware, async (req, res) => {
     }
 })
 
+router.delete('/delete/:id', authMiddleware, async (req, res) => {
+    try {
+        await models.Event.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+    } catch (err) {
+        res.status(500).send({
+            error: true,
+            message: "Something went wrong",
+        });
+    }
+    res.status(200).json({});
+})
+
 // delete photo
 router.delete('/deletePhoto', authMiddleware, async (req, res) => {
     try {
@@ -73,7 +91,7 @@ router.delete('/deletePhoto', authMiddleware, async (req, res) => {
 })
 
 
-// update event form
+// update event form - implemented
 router.put('/update/:id', authMiddleware, async (req, res) => {
 
     try {
@@ -101,25 +119,22 @@ router.put('/update/:id', authMiddleware, async (req, res) => {
     res.status(200).json({});
 })
 
-router.post('/addPhoto', authMiddleware, upload.array('photo'), async (req, res) => {
+// add new photo to the event
+router.post('/addPhoto/:id', authMiddleware, upload.array('photo'), async (req, res) => {
     try {
         for (let i = 0; i < req.files.length; i++) {
             const f = req.files[i];
             const url = await storePhoto(f);
             await models.EventPhoto.create({
                 eventPhotoURL: url,
-                EventId: req.body.EventId,
-            }, {
-                where: {
-                    EventId: req.body.EventId
-                }
+                EventId: req.params.id,
             });
+            res.status(200).json({url})
         }
     } catch (err) {
         res.status(500).json(err)
         return;
     }
-    res.status(200).json({})
 })
 
 
