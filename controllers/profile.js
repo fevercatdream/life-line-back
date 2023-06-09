@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const multer = require('multer');
 const upload = multer();
-const { User, Friends } = require('../models');
+const { User, Friends, EventLike, Event, EventComment} = require('../models');
 const authMiddleware = require('../auth');
 const {storePhoto} = require('../storage')
 const {Op} = require("sequelize");
@@ -19,6 +19,34 @@ router.get('/', authMiddleware, async (req, res) => {
             isIncoming: true,
         }
     })
+    const likes = await EventLike.findAll({
+        include: [
+            {
+                model: Event,
+                where: {
+                    UserId: req.user.id,
+                }
+            },
+            {
+                model: User,
+                attributes: ['name', 'profilePhoto']
+            }
+        ],
+    })
+    const comments = await EventComment.findAll({
+        include: [
+            {
+                model: Event,
+                where: {
+                    UserId: req.user.id,
+                },
+            },
+            {
+                model: User,
+                attributes: ['name', 'profilePhoto']
+            }
+        ]
+    })
     const pendingFriendsIds = friends.map( i => i.RightId);
     const users = await User.findAll({
         where: {
@@ -32,8 +60,8 @@ router.get('/', authMiddleware, async (req, res) => {
     console.log(user.id);
     res.send({
         id: req.user.id,
-        new_comments: 12,
-        new_likes: 35,
+        likes: likes,
+        comments: comments,
         new_friend_requests: friends.length,
         name: user.name,
         birthdate: user.birthDate,

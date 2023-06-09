@@ -30,6 +30,10 @@ EventComment.belongsTo(User);
 // Event Photo
 EventPhoto.belongsTo(Event);
 
+// Event Like
+EventLike.belongsTo(Event);
+EventLike.belongsTo(User);
+
 module.exports = {
     User: User,
     Event: Event,
