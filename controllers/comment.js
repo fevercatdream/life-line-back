@@ -21,10 +21,15 @@ router.post('/create', authMiddleware, async (req,res) => {
             UserId: user.id,
             EventId: req.body.eventId,
             comment: req.body.comment,
-
-
         })
-        res.status(200).json(newComment)
+        res.status(200).json({
+            ...newComment.dataValues,
+            User: {
+                id: user.id,
+                profilePhoto: user.profilePhoto,
+                name: user.name,
+            }
+        })
     } catch(err) {
         res.status(400).json(err);
     }
