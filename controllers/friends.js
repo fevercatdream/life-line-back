@@ -50,6 +50,31 @@ router.post('/create-request', authMiddleware, async (req, res) => {
     res.send({});
 })
 
+router.delete('/remove-friend', authMiddleware, async (req, res) => {
+    const userId = req.user.id;
+    const friendId = req.body.friendId;
+
+    try {
+        await Friends.destroy({
+            where: {
+                LeftId: userId,
+                RightId: friendId,
+            }
+        })
+        await Friends.destroy({
+            where: {
+                LeftId: friendId,
+                RightId: userId,
+            }
+        })
+    } catch (err) {
+        res.status(500).send(err)
+        return;
+    }
+
+    res.send({});
+})
+
 router.get('/requests', authMiddleware, async (req, res) => {
     const reqs = await Friends.findAll({
         where: {
