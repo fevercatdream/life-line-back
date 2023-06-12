@@ -48,14 +48,6 @@ This application uses the following:
 
 ### Front-end
 
-[@popperjs/core](https://www.npmjs.com/package/@popperjs/core) given an element, such as a button, and a tooltip element describing it, Popper will automatically put the tooltip in the right place near the button
-
-[bootstrap](https://www.npmjs.com/package/bootstrap) the most popular front-end framework for developing responsive, mobile first projects on the web
-
-[bootstrap-icons](https://www.npmjs.com/package/bootstrap-icons) official open source SVG icon library for Bootstrap
-
-[react-bootstrap](https://www.npmjs.com/package/react-bootstrap) Bootstrap 4 components built with React
-
 [@emotion/react](https://www.npmjs.com/package/@emotion/react) simple styling in React
 
 [@emotion/styled](https://www.npmjs.com/package/@emotion/styled) styled API for emotion
@@ -66,19 +58,29 @@ This application uses the following:
 
 [@mui/material](https://www.npmjs.com/package/@mui/material) a comprehensive library of components that features implementation of Google's Material Design system
 
+[@popperjs/core](https://www.npmjs.com/package/@popperjs/core) given an element, such as a button, and a tooltip element describing it, Popper will automatically put the tooltip in the right place near the button
+
 [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom) custom jest matchers to test the state of the DOM
 
 [@testing-library/react](https://www.npmjs.com/package/@testing-library/react) a simple and complete React DOM testing utilities that encourage good testing practices
 
 [@testing-library/user-event](https://www.npmjs.com/package/@testing-library/user-event) user-event tries to simulate the real events that would happen in the browser as the user interacts with it
 
+[bootstrap](https://www.npmjs.com/package/bootstrap) the most popular front-end framework for developing responsive, mobile first projects on the web
+
+[bootstrap-icons](https://www.npmjs.com/package/bootstrap-icons) official open source SVG icon library for Bootstrap
+
 [colord](https://www.npmjs.com/package/colord) a tiny yet powerful tool for high-performance color manipulations and conversions
+
+[dateformat](https://www.npmjs.com/package/dateformat) a node.js package for Steven Levithan's excellent dateFormat() function
 
 [dotenv](https://www.npmjs.com/package/dotenv) to load environment variables from a .env file
 
 [gh-pages](https://www.npmjs.com/package/gh-pages) publish to a gh-pages branch on GitHub (or any other branch on any other remote)
 
 [react](https://www.npmjs.com/package/react) React is a JavaScript library for building user interfaces
+
+[react-bootstrap](https://www.npmjs.com/package/react-bootstrap) Bootstrap 4 components built with React
 
 [react-dom](https://www.npmjs.com/package/react-dom) React package for working with the DOM
 
@@ -140,22 +142,35 @@ Back-end: https://life-line.herokuapp.com/
 ![Wireframe](./assets/images/wireframe-updated.png)
 
 ### Screenshot Desktop View
-![Desktop View Home]()
-![Desktop View Profile]()
-![Desktop View Timeline]()
-![Desktop View Friends]()
+Desktop View Home
+![Desktop View Home](./assets/images/desktop-view-home.png)
+Desktop View Profile
+![Desktop View Profile](./assets/images/desktop-view-profile.png)
+Desktop View Timeline
+![Desktop View Timeline](./assets/images/desktop-view-timeline.png)
+Desktop View Friends
+![Desktop View Friends](./assets/images/desktop-view-friends.png)
 
 ### Screenshot Tablet View
-![Tablet View Home]()
-![Tablet View Profile]()
-![Tablet View Timeline]()
-![Tablet View Friends]()
+Tablet View Home
+![Tablet View Home](./assets/images/tablet-view-home.png)
+Tablet View Profile
+![Tablet View Profile](./assets/images/tablet-view-profile.png)
+Tablet View Timeline
+![Tablet View Timeline](./assets/images/tablet-view-timeline.png)
+Tablet View Friends
+![Tablet View Friends](./assets/images/tablet-view-friends.png)
 
 ### Screenshot Mobile View
-![Mobile View Home]()
-![Mobile View Profile]()
-![Mobile View Timeline]()
-![Mobile View Friends]()
+Mobile View Home
+![Mobile View Home](./assets/images/mobile-view-home.png)
+Mobile View Profile
+![Mobile View Profile](./assets/images/mobile-view-profile.png)
+Mobile View Timeline
+![Mobile View Timeline](./assets/images/mobile-view-timeline.png)
+Mobile View Friends
+![Mobile View Friends](./assets/images/mobile-view-friends.png)
+<br />
 
 ## Credits
 
